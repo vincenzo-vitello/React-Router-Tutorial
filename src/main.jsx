@@ -22,35 +22,35 @@ import Index from "./routes/index";
 // creating a router
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Root />,
-    loader: rootLoader,
-    action: rootAction,
-    errorElement: <ErrorPage />,
+    path: "/", // Root path of the application
+    element: <Root />, // Main layout component
+    loader: rootLoader, // Loads necessary data before rendering Root
+    action: rootAction, // Handles form submissions at the root level
+    errorElement: <ErrorPage />, // Displays in case of errors
     children: [
       {
-        errorElement: <ErrorPage />,
+        errorElement: <ErrorPage />, // Error boundary for nested routes
         children: [
           {
-            index: true,
-            element: <Index />,
+            index: true, // Default route when visiting "/"
+            element: <Index />, // Renders the Index component
           },
           {
-            path: "/contacts/:contactId",
-            element: <Contact />,
-            loader: contactLoader,
-            action: contactAction,
+            path: "/contacts/:contactId", // Dynamic route for viewing a contact
+            element: <Contact />, // Renders the Contact component
+            loader: contactLoader, // Loads data for the specific contact
+            action: contactAction, // Handles form submissions for the contact
           },
           {
-            path: "contacts/:contactId/edit",
-            element: <EditContact />,
-            loader: contactLoader,
-            action: editAction,
+            path: "contacts/:contactId/edit", // Route for editing a contact
+            element: <EditContact />, // Renders the EditContact component
+            loader: contactLoader, // Loads contact data for editing
+            action: editAction, // Handles form submissions for editing
           },
           {
-            path: "contacts/:contactId/destroy",
-            action: destroyAction,
-            errorElement: <div>Oops! There was an error.</div>,
+            path: "contacts/:contactId/destroy", // Route for deleting a contact
+            action: destroyAction, // Handles contact deletion
+            errorElement: <div>Oops! There was an error.</div>, // Fallback error UI for deletion errors
           },
         ],
       },
@@ -58,8 +58,10 @@ const router = createBrowserRouter([
   },
 ]);
 
+// Rendering the application inside the root element
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={router} />{" "}
+    {/* Provides routing functionalities to the app */}
   </StrictMode>
 );
